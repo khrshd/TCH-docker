@@ -1,0 +1,22 @@
+#/home/ec2-user/docker-compose/my-web-app/docker-compose.yml
+version: "3.8"
+services: 
+  frontend:
+    build: ./frontend
+    container_name: my-httpd-service
+    ports:
+      - '8000:80'  # <external port>:<container's port>
+  backend:
+    build: ./backend
+    container_name: my-python-service
+    ports: 
+      - '5001:5000'
+  mongodb:
+    image: mongo:4.0.28-xenial
+    container_name: my-db
+    ports:
+      - '27017:27017'
+    volumes:
+      - db-data:/data/db
+volumes:
+  db-data:
